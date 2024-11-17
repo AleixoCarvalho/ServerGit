@@ -9,7 +9,7 @@
 <body>
     <main>
         <div class="form-container">
-            <!-- Sign-Up Form -->
+            <!-- Updated form without POST or action attributes -->
             <form id="signup-form" class="center-form">
                 <h2>Sign Up</h2>
                 <input type="text" id="username" name="username" placeholder="Username" required>
@@ -38,7 +38,7 @@
 
         // Handle form submission
         document.getElementById('signup-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent actual form submission
+            event.preventDefault(); // Prevent actual form submission to server
 
             // Get the username value
             const username = document.getElementById('username').value;

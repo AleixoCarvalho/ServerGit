@@ -26,10 +26,11 @@
 
         // Display personalized greeting
         const username = localStorage.getItem('username');
+        const greetingElement = document.getElementById('greeting');
         if (username) {
-            document.getElementById('greeting').textContent = `Hi, ${username}`;
+            greetingElement.textContent = `Hi, ${username}!`;
         } else {
-            document.getElementById('greeting').textContent = 'Hi, Guest';
+            greetingElement.textContent = 'Hi, Guest!';
         }
     </script>
 </body>

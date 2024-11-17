@@ -9,7 +9,7 @@
 <body>
     <main>
         <div class="form-container">
-            <!-- Updated form without POST or action attributes -->
+            <!-- Updated form -->
             <form id="signup-form" class="center-form">
                 <h2>Sign Up</h2>
                 <input type="text" id="username" name="username" placeholder="Username" required>
@@ -28,7 +28,7 @@
     <div id="navbar-container"></div>
 
     <script>
-        // Load navbar
+        // Load navbar dynamically
         fetch('navbar.html')
             .then(response => response.text())
             .then(data => {
@@ -38,15 +38,25 @@
 
         // Handle form submission
         document.getElementById('signup-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent actual form submission to server
+            event.preventDefault(); // Prevent the form's default behavior
 
-            // Get the username value
+            // Get form values
             const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
 
-            // Store the username in localStorage (to pass to another page)
+            // Basic validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            // Store data in localStorage
             localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
 
-            // Redirect to the user page
+            // Redirect to user page
             window.location.href = 'user.html';
         });
     </script>

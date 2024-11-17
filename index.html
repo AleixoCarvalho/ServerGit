@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eroded</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <main>
+        <div class="content">
+            <h2>Welcome to Eroded</h2>
+            <p>Experience the best of our services. Please log in or register to continue.</p>
+            <div class="btn-container">
+                <button type="submit">Login</button>
+                <button type="submit">Register</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="navbar-container"></div>
+
+    <script>
+        // Use JavaScript to load the navbar from an external file
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+
+</body>
+</html>
+
+<!--jello-->sadda

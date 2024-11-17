@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <main>
+        <div class="content">
+            <h1 id="greeting"></h1>
+        </div>
+    </main>
+
+    <div id="navbar-container"></div>
+
+    <script>
+        // Load navbar
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+        // Display personalized greeting
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('greeting').textContent = `Hi, ${username}`;
+        } else {
+            document.getElementById('greeting').textContent = 'Hi, Guest';
+        }
+    </script>
+</body>
+</html>

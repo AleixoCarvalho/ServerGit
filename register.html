@@ -9,12 +9,13 @@
 <body>
     <main>
         <div class="form-container">
-            <form method="POST" action="/register/" class="center-form">
+            <!-- Sign-Up Form -->
+            <form id="signup-form" class="center-form">
                 <h2>Sign Up</h2>
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
                 <button type="submit">Register</button>
                 <div class="check">
                     <input type="checkbox" name="remember" id="remember">
@@ -34,6 +35,20 @@
                 document.getElementById('navbar-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading navbar:', error));
+
+        // Handle form submission
+        document.getElementById('signup-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+
+            // Get the username value
+            const username = document.getElementById('username').value;
+
+            // Store the username in localStorage (to pass to another page)
+            localStorage.setItem('username', username);
+
+            // Redirect to the user page
+            window.location.href = 'user.html';
+        });
     </script>
 </body>
 </html>

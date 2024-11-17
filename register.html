@@ -25,17 +25,10 @@
         </div>
     </main>
 
-    <div id="navbar-container"></div>
+    <!-- <div id="navbar-container"></div> -->
+    <!-- This can be uncommented later if you want to load navbar dynamically -->
 
     <script>
-        // Load navbar dynamically
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading navbar:', error));
-
         // Handle form submission
         document.getElementById('signup-form').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form's default behavior
@@ -51,6 +44,11 @@
                 alert('Passwords do not match.');
                 return;
             }
+
+            // Log the values to console for debugging
+            console.log('Username:', username);
+            console.log('Email:', email);
+            console.log('Password:', password);
 
             // Store data in localStorage
             localStorage.setItem('username', username);

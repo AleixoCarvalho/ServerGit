@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <link rel="stylesheet" href="css/user.css">
+    <style>
+        /* Add animation styles directly here or in your CSS file */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #greeting {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0; /* Initially hidden */
+            animation: slideIn 1s ease-out forwards;
+        }
+    </style>
 </head>
 <body>
     <main>

@@ -12,8 +12,9 @@
             <h2>Welcome to Eroded</h2>
             <p>Experience the best of our services. Please log in or register to continue.</p>
             <div class="btn-container">
-                <button type="submit">Login</button>
-                <button type="submit">Register</button>
+                <!-- Buttons with navigation -->
+                <button id="login-btn" type="button">Login</button>
+                <button id="register-btn" type="button">Register</button>
             </div>
         </div>
     </main>
@@ -28,8 +29,15 @@
                 document.getElementById('navbar-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading navbar:', error));
-    </script>
 
+        // Add navigation functionality to buttons
+        document.getElementById('login-btn').addEventListener('click', function () {
+            window.location.href = 'login.html'; // Redirect to login page
+        });
+
+        document.getElementById('register-btn').addEventListener('click', function () {
+            window.location.href = 'register.html'; // Redirect to register page
+        });
+    </script>
 </body>
 </html>
-

@@ -1,11 +1,14 @@
-const express = require('express');  // CommonJS 'require'
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
-const cors = require('cors');
+import express from 'express';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import cors from 'cors';
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());  // Allow cross-origin requests
+app.use(cors());
+
+// Mock database, endpoints, and server setup remain the same...
+
 
 // Mock "database" for storing users (replace with a real database in production)
 const users = [];

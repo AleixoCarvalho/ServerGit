@@ -77,7 +77,7 @@ main {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%; /* Full width with padding */
+    width: 200px; /* Full width with padding */
     height: 40px;
     font-size: 16px;
     padding: 10px;

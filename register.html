@@ -4,31 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="css/style.css"> <!-- Ensure the correct path to your CSS file -->
+    <link rel="stylesheet" href="css/SignIn.css"> <!-- Link to your shared CSS file -->
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="logo.png" alt="Logo">
-                <h1>Website</h1>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <div class="form-container">
-            <form id="signup-form" class="center-form">
-                <h2>Sign Up</h2>
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="email" id="email" name="email" placeholder="Email" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
-                <button type="submit">Register</button>
-            </form>
-        </div>
-    </main>
+    <form id="signup-form" class="center-form">
+        <h2>Sign Up</h2>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+        <button type="submit">Register</button>
+    </form>
 
     <script>
         document.getElementById('signup-form').addEventListener('submit', async function (event) {

@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
-const cors = require('cors');
+import express from 'express';  // Use 'import' instead of 'require'
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import cors from 'cors';
 
 const app = express();
 app.use(bodyParser.json());

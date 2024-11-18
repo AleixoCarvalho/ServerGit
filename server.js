@@ -1,22 +1,20 @@
-import express from 'express';
+import express from 'express';  // Use 'import' instead of 'require'
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import cors from 'cors';
 
 const app = express();
-
-// Middleware
 app.use(bodyParser.json());
-app.use(cors()); // Enable CORS for front-end communication
+app.use(cors());  // Allow cross-origin requests
 
-// Mock database (replace with a real database in production)
+// Mock "database" for storing users (replace with a real database in production)
 const users = [];
 
 // Registration endpoint
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
-    console.log("Received registration data:", req.body); // Log the received data
 
+    // Validate input fields
     if (!username || !email || !password) {
         return res.status(400).json({ message: 'All fields are required.' });
     }
@@ -28,42 +26,39 @@ app.post('/register', async (req, res) => {
     }
 
     // Hash the password
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Save user to the "database"
-        users.push({ username, email, password: hashedPassword });
+    // Save the user to the "database"
+    const newUser = { username, email, password: hashedPassword };
+    users.push(newUser);
 
-        console.log('Registered user:', { username, email }); // Log the successful registration
-
-        res.status(201).json({ message: 'User registered successfully.' });
-    } catch (error) {
-        console.error('Error during password hashing:', error);
-        return res.status(500).json({ message: 'Error occurred while processing your request.' });
-    }
+    // Respond with success
+    res.status(201).json({ message: 'User registered successfully.' });
 });
 
 // Login endpoint
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
+    // Validate input fields
     if (!username || !password) {
-        return res.status(400).json({ message: 'Username and password are required.' });
+        return res.status(400).json({ message: 'Both username and password are required.' });
     }
 
-    // Find the user by username
+    // Find the user by username (or email if necessary)
     const user = users.find(user => user.username === username);
     if (!user) {
         return res.status(400).json({ message: 'User not found.' });
     }
 
     // Compare the password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
         return res.status(400).json({ message: 'Invalid password.' });
     }
 
-    res.status(200).json({ message: 'Login successful.' });
+    // Login successful, send a success response
+    res.status(200).json({ message: 'Login successful!' });
 });
 
 // Start the server

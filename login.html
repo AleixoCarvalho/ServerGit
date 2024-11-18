@@ -1,33 +1,47 @@
-<form id="login-form">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
 
-<script>
-    document.getElementById('login-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
+    <form id="login-form">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
 
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-        try {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            });
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            if (response.ok) {
-                alert('Login successful!');
-                window.location.href = 'user.html';
-            } else {
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
                 const data = await response.json();
-                alert(data.message);
+
+                if (response.ok) {
+                    alert('Login successful!');
+                    window.location.href = 'user.html'; // Redirect to user dashboard or home page
+                } else {
+                    alert(data.message); // Display error message from the server
+                }
+            } catch (error) {
+                console.error('Error logging in:', error);
+                alert('An error occurred. Please try again later.');
             }
-        } catch (error) {
-            console.error('Error logging in:', error);
-        }
-    });
-</script>
+        });
+    </script>
+
+</body>
+</html>

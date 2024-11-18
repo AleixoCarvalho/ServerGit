@@ -1,25 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const path = require('path');  // To serve static files like HTML
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());  // Allow cross-origin requests
 
-// Serve static files (HTML, CSS, JS) from the "public" folder
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Mock database (replace with a real database)
+// Mock "database" for storing users (replace with a real database in production)
 const users = [];
 
-// Serve the registration page (GET request for root)
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'signup.html'));  // Serve the signup HTML page
-});
-
-// Registration endpoint (POST request)
+// Registration endpoint
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
+
+    // Validate input fields
+    if (!username || !email || !password) {
+        return res.status(400).json({ message: 'All fields are required.' });
+    }
 
     // Check if the user already exists
     const existingUser = users.find(user => user.username === username || user.email === email);
@@ -30,11 +28,37 @@ app.post('/register', async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Save user to the "database"
-    users.push({ username, email, password: hashedPassword });
+    // Save the user to the "database"
+    const newUser = { username, email, password: hashedPassword };
+    users.push(newUser);
 
-    console.log('Users:', users); // Debug: view stored users
+    // Respond with success
     res.status(201).json({ message: 'User registered successfully.' });
+});
+
+// Login endpoint
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    // Validate input fields
+    if (!username || !password) {
+        return res.status(400).json({ message: 'Both username and password are required.' });
+    }
+
+    // Find the user by username (or email if necessary)
+    const user = users.find(user => user.username === username);
+    if (!user) {
+        return res.status(400).json({ message: 'User not found.' });
+    }
+
+    // Compare the password with the hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return res.status(400).json({ message: 'Invalid password.' });
+    }
+
+    // Login successful, send a success response
+    res.status(200).json({ message: 'Login successful!' });
 });
 
 // Start the server

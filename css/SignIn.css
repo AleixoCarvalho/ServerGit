@@ -79,7 +79,7 @@ main {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: calc(50% - 10px); /* Full width with padding */
+    width: 50px; /* Full width with padding */
     height: 40px;
     font-size: 16px;
     padding: 10px;

@@ -4,8 +4,10 @@ import bcrypt from 'bcrypt';
 import cors from 'cors';
 
 const app = express();
+
+// Middleware
 app.use(bodyParser.json());
-app.use(cors()); // Enable CORS to allow your frontend to access the backend
+app.use(cors()); // Enable CORS for front-end communication
 
 // Mock database (replace with a real database in production)
 const users = [];

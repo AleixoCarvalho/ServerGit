@@ -1,56 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/SignIn.css"> <!-- Optional CSS -->
-</head>
-<body>
-    <main>
-        <div class="form-container">
-            <form id="login-form" class="center-form">
-                <h2>Login</h2>
-                <input type="text" id="username" placeholder="Username" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <div class="check">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">Remember Me</label>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    </main>
+<form id="login-form">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
 
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+<script>
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
 
-            // Get input values
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('remember').checked;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-            // Retrieve stored credentials from localStorage
-            const storedUsername = localStorage.getItem('username');
-            const storedPassword = localStorage.getItem('password');
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
 
-            // Validate login
-            if (storedUsername === username && storedPassword === password) {
-                alert(`Welcome back, ${username}!`);
-
-                // Set 'Remember Me' flag if checked
-                if (rememberMe) {
-                    localStorage.setItem('isRemembered', 'true');
-                }
-
-                // Redirect to the user page
+            if (response.ok) {
+                alert('Login successful!');
                 window.location.href = 'user.html';
             } else {
-                // Show error if credentials don't match
-                alert('Invalid username or password.');
+                const data = await response.json();
+                alert(data.message);
             }
-        });
-    </script>
-</body>
-</html>
+        } catch (error) {
+            console.error('Error logging in:', error);
+        }
+    });
+</script>

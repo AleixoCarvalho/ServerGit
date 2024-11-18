@@ -1,7 +1,7 @@
-import express from 'express';  // Use 'import' instead of 'require'
-import bodyParser from 'body-parser';
-import bcrypt from 'bcrypt';
-import cors from 'cors';
+const express = require('express');  // CommonJS 'require'
+const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());

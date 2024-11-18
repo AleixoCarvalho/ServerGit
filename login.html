@@ -26,22 +26,28 @@
         document.getElementById('login-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
+            // Get input values
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const rememberMe = document.getElementById('remember').checked;
 
+            // Retrieve stored credentials from localStorage
             const storedUsername = localStorage.getItem('username');
             const storedPassword = localStorage.getItem('password');
 
+            // Validate login
             if (storedUsername === username && storedPassword === password) {
                 alert(`Welcome back, ${username}!`);
 
+                // Set 'Remember Me' flag if checked
                 if (rememberMe) {
                     localStorage.setItem('isRemembered', 'true');
                 }
 
+                // Redirect to the user page
                 window.location.href = 'user.html';
             } else {
+                // Show error if credentials don't match
                 alert('Invalid username or password.');
             }
         });

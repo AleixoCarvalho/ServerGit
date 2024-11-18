@@ -4,7 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #65a9d1; /* White background for the entire page */
+    background-color: #65a9d1; /* Background color */
 }
 
 header {
@@ -58,14 +58,13 @@ main {
 }
 
 .center-form {
-    background-color:#65646b; /* Background color for the form */
+    background-color: #65646b; /* Background color for the form */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
     max-width: 400px;
-    
 }
 
 .center-form h2 {
@@ -73,13 +72,12 @@ main {
     margin-bottom: 20px;
     color: #ffffff;
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-     
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 50px; /* Full width with padding */
+    width: 100%; /* Full width with padding */
     height: 40px;
     font-size: 16px;
     padding: 10px;
@@ -129,13 +127,8 @@ button:focus {
     justify-content: center;
     margin-top: 10px;
     color: #ccc;
-
 }
 
 input[type="checkbox"] {
     margin-right: 10px;
-  
-    
 }
-
-

@@ -1,57 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="css/SignIn.css"> <!-- Your CSS file -->
-</head>
-<body>
+<form id="signup-form">
+    <h2>Sign Up</h2>
+    <input type="text" id="username" name="username" placeholder="Username" required>
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+    <button type="submit">Register</button>
+</form>
 
-    <form id="signup-form" class="center-form">
-        <h2>Sign Up</h2>
-        <input type="text" id="username" name="username" placeholder="Username" required>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="password" id="password" name="password" placeholder="Password" required>
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
-        <button type="submit">Register</button>
-    </form>
+<script>
+    document.getElementById('signup-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
 
-    <script>
-        document.getElementById('signup-form').addEventListener('submit', async function (event) {
-            event.preventDefault();
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
 
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
+        // Check if the passwords match
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
 
-            if (password !== confirmPassword) {
-                alert('Passwords do not match.');
-                return;
+        try {
+            // Log the data to be sent (you can remove this later)
+            console.log('Sending registration data:', { username, email, password });
+
+            // Send registration data to the backend
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            const data = await response.json();
+
+            // If the response is okay, show success, else show error
+            if (response.ok) {
+                alert('User registered successfully!');
+                window.location.href = 'login.html'; // Redirect to login page after successful registration
+            } else {
+                alert(data.message); // Display error message from server
             }
-
-            try {
-                const response = await fetch('http://localhost:3000/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert('User registered successfully!');
-                    window.location.href = 'login.html';  // Redirect to login page after successful registration
-                } else {
-                    alert(data.message);
-                }
-            } catch (error) {
-                console.error('Error during registration:', error);
-                alert('An error occurred. Please try again later.');
-            }
-        });
-    </script>
-
-</body>
-</html>
+        } catch (error) {
+            console.error('Error during registration:', error);
+            alert('An error occurred. Please try again later.');
+        }
+    });
+</script>

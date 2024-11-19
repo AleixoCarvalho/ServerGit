@@ -10,9 +10,18 @@
     <div>
         <h2>Register</h2>
         <form id="registerForm">
+            <!-- Email field added -->
+            <input type="email" id="email" placeholder="Email" required>
+
+            <!-- Username field -->
             <input type="text" id="username" placeholder="Username" required>
+
+            <!-- Password field -->
             <input type="password" id="password" placeholder="Password" required>
+
+            <!-- Confirm password field -->
             <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
             <button type="submit">Register</button>
         </form>
         <p class="error-message" id="error-message"></p>
@@ -27,6 +36,7 @@
         registerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
+            const email = document.getElementById('email').value;
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -48,7 +58,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ username, password }),
+                    body: JSON.stringify({ email, username, password }),
                 });
 
                 if (!response.ok) {

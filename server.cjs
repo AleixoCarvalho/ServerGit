@@ -34,22 +34,33 @@ app.use(
   })
 );
 
-// Registration route
+// Registration Route (updated to handle email)
 app.post('/register', (req, res) => {
-  const { username, password } = req.body;
+  const { email, username, password } = req.body;
+
+  if (!email || !username || !password) {
+    return res.status(400).send({ message: 'Email, username, and password are required' });
+  }
+
+  // Hash the password before storing it
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     if (err) {
-      return res.status(500).json({ message: 'Error hashing password' });
+      console.error('Error hashing password:', err);
+      return res.status(500).send({ message: 'Error registering user' });
     }
 
-    db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err, result) => {
+    // Insert user into the database (make sure to handle email)
+    const query = 'INSERT INTO users (email, username, password) VALUES (?, ?, ?)';
+    db.query(query, [email, username, hashedPassword], (err, result) => {
       if (err) {
-        return res.status(500).json({ message: 'Error registering user' });
+        console.error('Error inserting user into database:', err);
+        return res.status(500).send({ message: 'Error registering user' });
       }
-      res.status(200).json({ message: 'User registered successfully!' });
+      res.status(201).send({ message: 'User registered successfully' });
     });
   });
 });
+
 
 // Login route
 app.post('/login', (req, res) => {

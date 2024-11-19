@@ -10,18 +10,10 @@
     <div>
         <h2>Register</h2>
         <form id="registerForm">
-            <!-- Email field added -->
             <input type="email" id="email" placeholder="Email" required>
-
-            <!-- Username field -->
             <input type="text" id="username" placeholder="Username" required>
-
-            <!-- Password field -->
             <input type="password" id="password" placeholder="Password" required>
-
-            <!-- Confirm password field -->
             <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-
             <button type="submit">Register</button>
         </form>
         <p class="error-message" id="error-message"></p>
@@ -41,17 +33,14 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Clear previous error and success messages
             errorMessage.textContent = '';
             successMessage.textContent = '';
 
-            // Check if passwords match
             if (password !== confirmPassword) {
                 errorMessage.textContent = 'Passwords do not match!';
                 return;
             }
 
-            // Send the registration request to the server
             try {
                 const response = await fetch('http://localhost:3000/register', {
                     method: 'POST',
@@ -66,7 +55,7 @@
                     errorMessage.textContent = errorData.message || 'Registration failed';
                 } else {
                     successMessage.textContent = 'Registration successful! You can now log in.';
-                    registerForm.reset();  // Clear the form after successful registration
+                    registerForm.reset();
                 }
             } catch (error) {
                 errorMessage.textContent = 'An error occurred, please try again.';

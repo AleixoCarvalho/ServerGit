@@ -3,51 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Register</title>
 </head>
 <body>
 
-    <form id="signup-form">
-        <h2>Sign Up</h2>
-        <input type="text" id="username" name="username" placeholder="Username" required>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="password" id="password" name="password" placeholder="Password" required>
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
-        <button type="submit">Register</button>
-    </form>
+    <div>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p class="error-message" id="error-message"></p>
+        <p id="success-message"></p>
+    </div>
 
     <script>
-        document.getElementById('signup-form').addEventListener('submit', async function (event) {
+        const registerForm = document.getElementById('registerForm');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+
+        registerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
+            // Clear previous error and success messages
+            errorMessage.textContent = '';
+            successMessage.textContent = '';
+
+            // Check if passwords match
             if (password !== confirmPassword) {
-                alert('Passwords do not match.');
+                errorMessage.textContent = 'Passwords do not match!';
                 return;
             }
 
+            // Send the registration request to the server
             try {
                 const response = await fetch('http://localhost:3000/register', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password })
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
                 });
 
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert('User registered successfully!');
-                    window.location.href = 'login.html';  // Redirect to login page after successful registration
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    errorMessage.textContent = errorData.message || 'Registration failed';
                 } else {
-                    alert(data.message);
+                    successMessage.textContent = 'Registration successful! You can now log in.';
+                    registerForm.reset();  // Clear the form after successful registration
                 }
             } catch (error) {
-                console.error('Error during registration:', error);
-                alert('An error occurred. Please try again later.');
+                errorMessage.textContent = 'An error occurred, please try again.';
             }
         });
     </script>

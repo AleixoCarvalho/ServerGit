@@ -26,7 +26,7 @@ db.connect((err) => {
 });
 
 // Registration endpoint
-app.post('/register', (req, res) => {
+app.post('/register', (req, res) => {  // Fixed route
     const { email, username, password } = req.body;
 
     // Validate input
@@ -67,7 +67,7 @@ app.post('/register', (req, res) => {
 });
 
 // Login endpoint
-app.post('/login', (req, res) => {
+app.post('/login', (req, res) => {  // Fixed route
     const { username, password } = req.body;
 
     if (!username || !password) {

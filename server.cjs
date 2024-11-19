@@ -45,21 +45,22 @@ app.post('/register', (req, res) => {
   // Hash the password before storing it
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     if (err) {
-      console.error('Error hashing password:', err);
+      console.error('Error hashing password:', err); // This should show the error if bcrypt fails
       return res.status(500).send({ message: 'Error registering user' });
     }
 
-    // Insert user into the database (make sure to handle email)
+    // Insert user into the database
     const query = 'INSERT INTO users (email, username, password) VALUES (?, ?, ?)';
     db.query(query, [email, username, hashedPassword], (err, result) => {
       if (err) {
-        console.error('Error inserting user into database:', err);
+        console.error('Error inserting user into database:', err); // This will show SQL related errors
         return res.status(500).send({ message: 'Error registering user' });
       }
       res.status(201).send({ message: 'User registered successfully' });
     });
   });
 });
+
 
 
 // Login route
